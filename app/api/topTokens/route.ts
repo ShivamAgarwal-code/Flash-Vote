@@ -1,6 +1,6 @@
 // app/api/topTokens/route.ts
 import { NextResponse } from 'next/server';
-import axios from 'axios';
+// import axios from 'axios';
 
 export async function GET() {
   const url = 'https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest?limit=10';

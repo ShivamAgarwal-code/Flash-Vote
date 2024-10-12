@@ -12,7 +12,7 @@ interface ContentProps {
   createdBy: number
 }
 
-const TopToken: React.FC<ContentProps> = ({name, symbol, volume_24h, price, image, createdBy}) => {
+const TopToken: React.FC<ContentProps> = ({name, symbol, volume_24h, price, image}) => {
   return (
     <div className="grid grid-cols-1 md:grid-cols-3 items-center w-full justify-between gap-5 pb-3 border-b">
       <div className="flex flex-row justify-start items-center text-center gap-5">

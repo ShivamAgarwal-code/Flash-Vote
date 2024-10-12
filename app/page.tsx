@@ -13,21 +13,31 @@ interface Token {
   createdBy: number
 }
 
+interface CryptoData {
+  name: string;
+  symbol: string;
+  quote: {
+    USD: {
+      volume_24h: number;
+      price: number;
+    };
+  };
+  id: number;
+}
+
 const Home = () => {
   const [topTokens, setTopTokens] = useState<Token[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
     const fetchTopTokens = async () => {
-      setLoading(true);
       try {
-        const response = await axios.get("/api/topTokens"); // Call your self-hosted API route
+        const response = await axios.get<CryptoData[]>("/api/topTokens"); // Call your self-hosted API route
         console.log(response.data);
-        const topCryptos = response.data.data.map((crypto:any) => ({
+        const topCryptos = response.data.map((crypto) => ({
           name: crypto.name,
           symbol: crypto.symbol,
-          volume_24h: crypto.quote.USD.volume_24h.toFixed(2),
-          price: crypto.quote.USD.price.toFixed(2),
+          volume_24h: parseFloat(crypto.quote.USD.volume_24h.toFixed(2)),
+          price: parseFloat(crypto.quote.USD.price.toFixed(2)),
           image: `/img/token/${crypto.id}.png`,
           createdBy: crypto.id
         }));
@@ -35,8 +45,6 @@ const Home = () => {
         setTopTokens(topCryptos)
       } catch (error) {
         console.error("Error fetching top tokens:", error);
-      } finally {
-        setLoading(false);
       }
     };
 

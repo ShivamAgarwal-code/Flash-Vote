@@ -1,7 +1,7 @@
 "use client";
 import { BetCard } from "@/components/common/card";
 import TopToken from "@/components/common/topToken";
-import Image from "next/image";
+// import Image from "next/image";
 import React, { useState } from "react";
 
 interface TapCardProps {
