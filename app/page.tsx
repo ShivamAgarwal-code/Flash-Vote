@@ -1,4 +1,4 @@
-"use client"; // <-- Add this line at the top
+"use client";
 
 import Dashboard from "@/components/page/Dashboard";
 import React, { useState, useEffect } from "react";
@@ -13,19 +13,29 @@ interface Token {
   createdBy: number; // Keep this as number to match the expected type in Dashboard
 }
 
+interface CryptoData {
+  name: string;
+  symbol: string;
+  quotes: {
+    USD: {
+      volume_24h: number;
+      price: number;
+    };
+  };
+  id: string;
+}
+
 const Home = () => {
   const [topTokens, setTopTokens] = useState<Token[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
     const fetchTopTokens = async () => {
-      setLoading(true);
       try {
         const response = await axios.get(
           "https://api.coinpaprika.com/v1/tickers"
         ); // CoinPaprika API endpoint to get all tickers
 
-        const topCryptos = response.data.slice(0, 10).map((crypto: any) => ({
+        const topCryptos = response.data.slice(0, 10).map((crypto: CryptoData) => ({
           name: crypto.name,
           symbol: crypto.symbol,
           volume_24h: crypto.quotes.USD.volume_24h.toFixed(2), // USD volume_24h from CoinPaprika
@@ -37,8 +47,6 @@ const Home = () => {
         setTopTokens(topCryptos);
       } catch (error) {
         console.error("Error fetching top tokens:", error);
-      } finally {
-        setLoading(false);
       }
     };
 
