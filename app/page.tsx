@@ -2,49 +2,43 @@
 
 import Dashboard from "@/components/page/Dashboard";
 import React, { useState, useEffect } from "react";
-import axios from 'axios'
+import axios from "axios";
 
 interface Token {
-  name: string,
-  symbol: string,
-  volume_24h: number,
-  price: number,
-  image: string,
-  createdBy: number
-}
-
-interface CryptoData {
   name: string;
   symbol: string;
-  quote: {
-    USD: {
-      volume_24h: number;
-      price: number;
-    };
-  };
-  id: number;
+  volume_24h: number;
+  price: number;
+  image: string;
+  createdBy: number; // Keep this as number to match the expected type in Dashboard
 }
 
 const Home = () => {
   const [topTokens, setTopTokens] = useState<Token[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
     const fetchTopTokens = async () => {
+      setLoading(true);
       try {
-        const response = await axios.get<CryptoData[]>("/api/topTokens"); // Call your self-hosted API route
-        console.log(response.data);
-        const topCryptos = response.data.map((crypto) => ({
+        const response = await axios.get(
+          "https://api.coinpaprika.com/v1/tickers"
+        ); // CoinPaprika API endpoint to get all tickers
+
+        const topCryptos = response.data.slice(0, 10).map((crypto: any) => ({
           name: crypto.name,
           symbol: crypto.symbol,
-          volume_24h: parseFloat(crypto.quote.USD.volume_24h.toFixed(2)),
-          price: parseFloat(crypto.quote.USD.price.toFixed(2)),
-          image: `/img/token/${crypto.id}.png`,
-          createdBy: crypto.id
+          volume_24h: crypto.quotes.USD.volume_24h.toFixed(2), // USD volume_24h from CoinPaprika
+          price: crypto.quotes.USD.price.toFixed(2), // USD price from CoinPaprika
+          image: `/img/token/${crypto.id}.png`, // Assuming you have local images stored
+          createdBy: parseInt(crypto.id, 10), // Convert id to a number if necessary
         }));
 
-        setTopTokens(topCryptos)
+        setTopTokens(topCryptos);
       } catch (error) {
         console.error("Error fetching top tokens:", error);
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -52,7 +46,6 @@ const Home = () => {
   }, []);
 
   console.log(topTokens);
-  
 
   return (
     <div

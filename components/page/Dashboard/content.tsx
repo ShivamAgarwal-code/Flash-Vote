@@ -185,11 +185,11 @@ const Content: React.FC<ContentProps> = ({cryptos}) => {
     <div className="flex flex-col gap-6 py-6 md:px-[50px] px-[15px]">
       <div className="flex flex-col gap-3 items-center justify-between h-[300px] overflow-y-auto md:px-10 md:mx-64 px-10 shadow-md">
         <div className="grid grid-cols-3 items-center w-full p-5 justify-between">
-          <div className="flex flex-row justify-start ml-5 items-center text-center gap-3">
+          <div className="flex flex-row justify-start ml-[-20px] items-center text-center gap-0"> {/* Adjusted ml from -10px to -20px */}
             <p className="text-center"><span className="text-2xl">Name</span></p>
           </div>
-          <div className="flex justify-start ml-5 flex-row text-center">
-            <p className="text-2xl">price</p>
+          <div className="flex justify-start ml-[-3px] flex-row text-center">
+            <p className="text-2xl">Price</p>
           </div>
           <div className="flex justify-start ml-5 flex-row text-center">
             <p className="text-2xl">Volume(24h)</p>
@@ -220,7 +220,7 @@ const Content: React.FC<ContentProps> = ({cryptos}) => {
           </div>
         ))}
       </div>
-      <div className="flex flex-row rounded-lg md:w-1/3 sm:w-1/2 w-full items-center justify-center gap-6 border py-2 px-1 ">
+      <div className="flex flex-row rounded-lg md:w-1/3 sm:w-1/2 w-full items-center justify-start gap-6 border py-2 px-1">
         {
           subTab.map((sub) => 
             <button
