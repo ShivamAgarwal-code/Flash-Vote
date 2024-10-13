@@ -186,13 +186,13 @@ const Content: React.FC<ContentProps> = ({cryptos}) => {
       <div className="flex flex-col gap-3 items-center justify-between h-[300px] overflow-y-auto md:px-10 md:mx-64 px-10 shadow-md">
         <div className="grid grid-cols-3 items-center w-full p-5 justify-between">
           <div className="flex flex-row justify-start ml-[-20px] items-center text-center gap-0"> {/* Adjusted ml from -10px to -20px */}
-            <p className="text-center"><span className="text-2xl">Name</span></p>
+            <p className="text-center text-white"><span className="text-2xl">Name</span></p>
           </div>
           <div className="flex justify-start ml-[-3px] flex-row text-center">
-            <p className="text-2xl">Price</p>
+            <p className="text-2xl text-white">Price</p>
           </div>
           <div className="flex justify-start ml-5 flex-row text-center">
-            <p className="text-2xl">Volume(24h)</p>
+            <p className="text-2xl text-white">Volume(24h)</p>
           </div>
         </div>
         {cryptos.map((crypto, index) => (
