@@ -32,10 +32,10 @@ const TopToken: React.FC<ContentProps> = ({symbol, volume_24h, price}) => {
           <p className="text-center text-md text-gray-500 mr-20"><span>{symbol}</span></p>
         </div>
       </div>
-      <div className="flex flex-row text-center left-40">
+      <div className="flex flex-row text-center left-40 text-white">
         <p>{price}</p>
       </div>
-      <div className="flex flex-row text-center right-0">
+      <div className="flex flex-row text-center right-0 text-white">
         <p>{formatVolume(volume_24h)}</p>
       </div>
     </div>
